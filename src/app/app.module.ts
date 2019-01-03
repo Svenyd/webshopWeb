@@ -11,7 +11,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import {RouterModule, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
-  {path: '', component: ProductpageComponent}
+  {path: '', component: ProductpageComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({
