@@ -9,6 +9,10 @@ import { ProductpageComponent } from './productpage/productpage.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {RouterModule, Routes} from '@angular/router';
+import {LoginService} from './login/login.service';
+import { ProductListComponent } from './productpage/product-list/product-list.component';
+import { ProductComponent } from './productpage/product-list/product/product.component';
+import {ProductService} from './productpage/product.service';
 
 const appRoutes: Routes = [
   {path: '', component: ProductpageComponent},
@@ -24,7 +28,9 @@ const appRoutes: Routes = [
     LoginComponent,
     ProductpageComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProductListComponent,
+    ProductComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -32,7 +38,7 @@ const appRoutes: Routes = [
     ),
     BrowserModule
   ],
-  providers: [],
+  providers: [LoginService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
