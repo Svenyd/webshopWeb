@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {Product} from '../models/product.model';
 import {HttpClient} from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductService {
   private product_url = 'http://localhost:4200/api/products';
 

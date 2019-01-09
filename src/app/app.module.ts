@@ -13,11 +13,13 @@ import {LoginService} from './login/login.service';
 import { ProductListComponent } from './productpage/product-list/product-list.component';
 import { ProductComponent } from './productpage/product-list/product/product.component';
 import {ProductService} from './productpage/product.service';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {SignupService} from './signup/signup.service';
 
 const appRoutes: Routes = [
   {path: '', component: ProductpageComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignupComponent}
+  {path: 'sign-up', component: SignupComponent}
 ];
 
 @NgModule({
@@ -34,11 +36,16 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(
-      appRoutes, {enableTracing: true}
+      appRoutes, {enableTracing: false}
     ),
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [LoginService, ProductService],
+  providers: [
+    LoginService,
+    ProductService,
+    HttpClientModule,
+    SignupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

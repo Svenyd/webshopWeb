@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LoginService} from './login.service';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('username') username: ElementRef;
+  @ViewChild('password') password: ElementRef;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+  }
+
+  onLogin() {
+    this.loginService.authenticate(this.username.nativeElement.value, this.password.nativeElement.value)
+      .subscribe(user => this.loginService.login(user));
   }
 
 }

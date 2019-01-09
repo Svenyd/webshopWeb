@@ -1,15 +1,14 @@
 <app-header></app-header>
 
 <div>
-  <input type="text" placeholder="Full name">
-  <input type="text" placeholder="Email">
-  <input type="text" placeholder="Password">
-  <input type="text" placeholder="Password check">
+  <input type="text" placeholder="Full name" #name>
+  <input type="text" placeholder="Email" #email>
+  <input type="text" placeholder="Password" #password>
+  <input type="text" placeholder="Password check" #passwordCheck>
 </div>
 <div>
-  <input type="text" placeholder="Street">
-  <input type="text" placeholder="House number">
-  <input type="text" placeholder="Postal code">
-  <input type="text" placeholder="City">
+  <input type="text" placeholder="House number" #house_number>
+  <input type="text" placeholder="Postal code" #postcode>
+  <input type="text" placeholder="City" #city>
 </div>
-<button type="submit">Sign up</button>
+<button type="submit" (click)="onSignUp()">Sign up</button>

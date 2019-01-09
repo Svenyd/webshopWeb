@@ -2,10 +2,14 @@
   <div>
     <h1 routerLink="">Pannenkoekenboerderij Katwijk</h1>
   </div>
-  <div>
+  <div *ngIf="!this.user">
     <h2>Login or sign up!</h2>
-    <button routerLink="login">Login</button>
-    <button routerLink="signup">Sign up</button>
+    <button routerLink="/login">Login</button>
+    <button routerLink="/sign-up">Sign up</button>
+  </div>
+  <div *ngIf="this.user">
+    You're logged in!
+    <button (click)="logout()">logout</button>
   </div>
   <hr>
 </div>

@@ -2,8 +2,8 @@
 <div>
   <label>Login here:</label>
   <label>Username</label>
-  <input type="text" id="username" title="Username">
+  <input type="text" id="username" title="Username" #username>
   <label>Password</label>
-  <input type="password" id="password" title="Password">
-  <button type="submit">Login</button>
+  <input type="password" id="password" title="Password" #password>
+  <button type="submit" (click)="onLogin()">Login</button>
 </div>
