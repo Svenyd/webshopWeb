@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../models/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,11 +8,13 @@ export class LoginService {
 
   private userURL = 'https://localhost:4200/api/users';
 
+  user: User = new User('Sven van Duijn', 'sven.duijn@gmail.com', '0623815065', 'password', '2224DT', 'Geelhartje 3', 'Katwijk');
+  // user: User = null;
+
   constructor(private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) { }
-  user: User = null;
 
   public isLoggedIn() {
-    return this.user != null;
+    return this.user.name !== '';
   }
 
 
@@ -35,6 +37,15 @@ export class LoginService {
   }
 
   logout() {
-    this.user = null;
+    this.user = new User('', '', '', '', '', '', '');
+  }
+
+  saveInfo(street: string, city: string, postcode: string, phone: string) {
+    this.user.street = street;
+    this.user.city = city;
+    this.user.postcode = postcode;
+    this.user.phone = phone;
+
+    // TODO: send to server
   }
 }

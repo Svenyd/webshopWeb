@@ -1,3 +1,47 @@
-<p>
-  cart works!
-</p>
+<div *ngIf="!cart.cartItems.length">
+  <p>Voeg producten toe aan uw winkelmandje!</p>
+</div>
+<table *ngIf="cart.cartItems.length" class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Hoeveelheid</th>
+      <th>Prijs per product</th>
+      <th>Prijs totaal</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cartItem of cart.cartItems">
+      <td>
+        {{cartItem.product.name}}
+      </td>
+      <td>
+        <img src="/assets/pictures/minus.png" (click)="countDown(cartItem)" class="img-count pointer">
+        <label>{{cartItem.amount}}</label>
+        <img src="/assets/pictures/plus.png" (click)="countUp(cartItem)" class="img-count pointer">
+      </td>
+      <td>
+        € {{cartItem.product.price}}
+      </td>
+      <td>
+        € {{cartItem.product.price * cartItem.amount}}
+      </td>
+      <td>
+        <img src="/assets/pictures/remove.png" (click)="remove(cartItem)" class="img-count pointer">
+      </td>
+    </tr>
+    <tr class="font-weight-bold">
+      <td><p>Totaal:</p></td>
+      <td></td>
+      <td></td>
+      <td>€ {{cart.totalPrice}}</td>
+      <td></td>
+    </tr>
+    <tr class="font-weight-bold">
+      <td></td><td></td><td></td>
+      <td><a routerLink="checkout" class="btn btn-success">Betalen</a></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

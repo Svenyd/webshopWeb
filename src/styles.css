@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+.img-product {
+  margin-top: 1rem;
+  max-width: 10rem !important;
+  height: 10rem !important;
+}
+
+.img-infoProduct {
+  max-width: 20rem !important;
+  height: 15rem !important;
+}
+
+.product {
+  margin-top: 1rem;
+}
+
+.cart {
+  max-width: 3rem;
+}
+
+.title {
+  padding-left: 2rem !important;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  padding-top: 1rem;
+}
+
+.img-count {
+  max-width: 2rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.form-spacing {
+  margin-top: 1rem;
+}
+
+body {
+  background-color: #ffffee !important;
+}
+
+h1 {
+  font-size: 2rem !important;
+}
+
+h2 {
+  font-size: 1rem !important;
+}
+
+p {
+  margin-bottom: 0rem !important;
+}
+

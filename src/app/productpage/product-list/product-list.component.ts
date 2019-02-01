@@ -17,4 +17,7 @@ export class ProductListComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
+  showInfo(product: Product) {
+    this.productService.infoProduct.emit(product);
+  }
 }

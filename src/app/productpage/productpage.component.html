@@ -1,2 +1,9 @@
-<app-header></app-header>
-<app-product-list></app-product-list>
+<div class="row">
+  <div class="col-sm-5">
+    <app-product-list></app-product-list>
+  </div>
+  <div class="col-sm-5 border shadow">
+    <app-product *ngIf="infoProduct; else infoText" [product]="infoProduct"></app-product>
+    <ng-template #infoText><p>Plese select a product!</p></ng-template>
+  </div>
+</div>

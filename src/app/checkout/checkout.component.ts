@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LoginService} from '../login/login.service';
+import {User} from '../models/user.model';
+import {CartService} from '../cart/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -6,10 +9,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild('street')street: ElementRef;
+  @ViewChild('city')city: ElementRef;
+  @ViewChild('postcode')postcode: ElementRef;
+  @ViewChild('phone')phone: ElementRef;
 
-  constructor() { }
+  user: User;
+  isLoggedIn;
+  editAddress: boolean;
+  cart;
+
+  constructor(private loginService: LoginService, private cartService: CartService) { }
 
   ngOnInit() {
+    this.user = this.loginService.user;
+    this.isLoggedIn = this.loginService.isLoggedIn();
+    this.cart = this.cartService.cart;
   }
 
+  saveInfo() {
+    this.editAddress = false;
+    this.loginService.saveInfo(
+      this.street.nativeElement.value,
+      this.city.nativeElement.value,
+      this.postcode.nativeElement.value,
+      this.phone.nativeElement.value
+    );
+  }
 }

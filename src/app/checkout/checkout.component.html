@@ -1,3 +1,96 @@
-<p>
-  checkout works!
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <div *ngIf="isLoggedIn && !editAddress" class="col-md-8 border shadow offset-2 row">
+      <form class="offset-1">
+        <div class="form-group font-weight-bold form-spacing">
+          {{user.name}}
+        </div>
+        <div>
+          <ul class="form-group list-unstyled">
+            <li>
+              {{user.street}}
+            </li>
+            <li>
+              {{user.city}}
+            </li>
+            <li>
+              {{user.postcode}}
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          {{user.phone}}
+        </div>
+      </form>
+    </div>
+    <div *ngIf="!isLoggedIn || editAddress" class="col-md-8 border shadow offset-2 row">
+      <form class="offset-1">
+        <div *ngIf="isLoggedIn" class="form-group font-weight-bold form-spacing">
+          {{user.name}}
+        </div>
+        <div *ngIf="!isLoggedIn" class="form-group offset-1 form-spacing">
+          <input type="text" class="form-control" placeholder="Naam" name="name" #name>
+        </div>
+        <div>
+          <ul class="form-group list-unstyled">
+            <div class="form-group offset-1">
+              <input type="text" class="form-control" placeholder="Straat" name="street" value="{{user.street}}" #street>
+            </div>
+            <div class="form-group offset-1">
+              <input type="text" class="form-control" placeholder="Stad" name="city" value="{{user.city}}" #city>
+            </div>
+            <div class="form-group offset-1">
+              <input type="text" class="form-control" placeholder="Postcode" name="postcode" value="{{user.postcode}}" #postcode>
+            </div>
+          </ul>
+        </div>
+        <div class="form-group offset-1">
+          <input type="text" class="form-control" placeholder="Telefoon" name="phone" value="{{user.phone}}" #phone>
+        </div>
+        <div *ngIf="isLoggedIn" class="form-group offset-1">
+          <a (click)="saveInfo()" class="btn btn-success form-control">Opslaan</a>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="!editAddress && isLoggedIn" class="offset-2">
+      <small (click)="editAddress = !editAddress" class="btn-link pointer">Ander adres</small>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="col-md-6 border shadow offset-1">
+      <div class="font-weight-bold offset-1 form-spacing">Order:</div>
+      <div class="offset-1">
+        <ul class="list-unstyled">
+          <li *ngFor="let cartItem of cart.cartItems">
+            <div class="row">
+              <div class="col-md-6">
+                {{cartItem.product.name}}
+              </div>
+              <div class="col-md-2">
+                x{{cartItem.amount}}
+              </div>
+              <div class="col-md-2">
+                € {{cartItem.amount * cartItem.product.price}}
+              </div>
+            </div>
+          </li>
+          <hr>
+          <li>
+            <div class="row">
+              <div class="col-md-8 font-weight-bold">
+                Totaal prijs:
+              </div>
+              <div class="col-md-4">
+                € {{cart.totalPrice}}
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="form-group">
+          <a routerLink="/paid" class="btn btn-success form-control">Betalen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -13,13 +13,18 @@ import {LoginService} from './login/login.service';
 import { ProductListComponent } from './productpage/product-list/product-list.component';
 import { ProductComponent } from './productpage/product-list/product/product.component';
 import {ProductService} from './productpage/product.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {SignupService} from './signup/signup.service';
+import {CartService} from './cart/cart.service';
+import { PaidComponent } from './paid/paid.component';
 
 const appRoutes: Routes = [
   {path: '', component: ProductpageComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'sign-up', component: SignupComponent}
+  {path: 'sign-up', component: SignupComponent},
+  {path: 'cart', component: CartComponent},
+  {path: 'cart/checkout', component: CheckoutComponent},
+  {path: 'paid', component: PaidComponent}
 ];
 
 @NgModule({
@@ -32,7 +37,8 @@ const appRoutes: Routes = [
     CartComponent,
     CheckoutComponent,
     ProductListComponent,
-    ProductComponent
+    ProductComponent,
+    PaidComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -44,6 +50,7 @@ const appRoutes: Routes = [
   providers: [
     LoginService,
     ProductService,
+    CartService,
     HttpClientModule,
     SignupService],
   bootstrap: [AppComponent]

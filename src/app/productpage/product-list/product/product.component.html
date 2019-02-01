@@ -1,1 +1,20 @@
-<h1>{{this.product.name}}</h1>
+<div class="col-md-11 offset-1 form-spacing">
+  <div class="row">
+    <img src="{{this.product.picture}}" class="col-md-12 img-infoProduct">
+  </div>
+  <div class="row">
+    <h1>{{this.product.name}}</h1>
+  </div>
+  <div class="row">
+    <h2>Ingredienten: </h2>
+  </div>
+  <div *ngFor="let ingredient of this.product.ingredients" class="row">
+    <p>{{ingredient}}</p>
+  </div>
+  <div class="row">
+    <input type="number" placeholder="Hoeveelheid" [value]="1" [min]="1" #amount>
+    <div>
+      <a (click)="addToCart()" class="btn btn-primary">Bestel</a>
+    </div>
+  </div>
+</div>
