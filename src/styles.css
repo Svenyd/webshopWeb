@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 .img-product {
-  margin-top: 1rem;
   max-width: 10rem !important;
   height: 10rem !important;
 }
@@ -8,10 +7,12 @@
 .img-infoProduct {
   max-width: 20rem !important;
   height: 15rem !important;
+  border-radius: 1rem;
 }
 
 .product {
   margin-top: 1rem;
+  border-radius: 1rem;
 }
 
 .cart {
@@ -22,11 +23,25 @@
   padding-left: 2rem !important;
 }
 
+.margin-column {
+  margin: 0 5rem;
+}
+
 .vcenter {
   display: inline-block;
   vertical-align: middle;
   float: none;
   padding-top: 1rem;
+}
+
+.align-vertical-center {
+  display: inline-block;
+  padding-top: 50%;
+  padding-bottom: 50%;
+}
+
+.mh-10 {
+  max-height: 10rem !important;
 }
 
 .img-count {
@@ -39,6 +54,26 @@
 
 .form-spacing {
   margin-top: 1rem;
+}
+
+.admin-table-block {
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 80vh;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.img-thumbnail {
+  max-height: 4rem;
 }
 
 body {

@@ -1,22 +1,21 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, OnInit} from '@angular/core';
 import {Product} from '../models/product.model';
 import {HttpClient} from '@angular/common/http';
+import {AppConfig} from '../app.config';
 
 @Injectable()
-export class ProductService {
-  private product_url = 'http://localhost:4200/api/products';
+export class ProductService implements OnInit {
+
+  private product_url = `${this.config.getUrl()}/products`;
   infoProduct = new EventEmitter<Product>();
 
-  constructor(private httpClient: HttpClient) { }
+  products: Product[] = [];
 
-  products: Product[] = [
-    new Product('Boerenzoon', 10, 'Pizza pannekoek', ['Gehakt', 'Champions', 'Ui', 'Paprika', 'Kaas']
-      , 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/2015_01_Spekpannenkoek.jpg/1200px-2015_01_Spekpannenkoek.jpg'
-    ),
-    new Product('Klein duimpje', 11, 'Ijs', ['Vanille ijs', 'Aardbij ijs', 'Slagroom', 'Wafel', 'Versiering']
-      , 'https://chickslovefood.com/wp-content/uploads/sites/4/2017/08/RECEPT-SNICKERS-IJS-ZONDER-IJSMACHINE.jpg'
-    )
-];
+  constructor(private httpClient: HttpClient, private config: AppConfig) { }
+
+  ngOnInit(): void {
+    this.getProductsFromServer().subscribe(products => console.log(products));
+  }
 
   getProducts() {
     return this.products.slice();

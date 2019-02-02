@@ -10,16 +10,23 @@ import {User} from '../models/user.model';
 export class HeaderComponent implements OnInit {
 
   user: User;
+  isLoggedIn: boolean;
 
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
     this.user = this.loginService.user;
+    this.loginService.loggedIn.subscribe(isLoggedIn => this.logInChange(isLoggedIn));
+  }
+
+  logInChange(isLoggedIn: boolean) {
+    this.isLoggedIn = isLoggedIn;
+    this.user = this.loginService.user;
   }
 
   logout() {
     this.loginService.logout();
-    this.user = null;
+    this.user = this.loginService.user;
   }
 
 }

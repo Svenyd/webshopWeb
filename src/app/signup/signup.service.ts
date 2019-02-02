@@ -18,7 +18,6 @@ export class SignupService {
     const options = {
       headers: httpHeaders
     };
-
     return this.httpCliet.post<User>(this.userURL, userJSON, options);
   }
 

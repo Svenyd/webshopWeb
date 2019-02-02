@@ -1,6 +1,7 @@
-<div *ngIf="!cart.cartItems.length">
-  <p>Voeg producten toe aan uw winkelmandje!</p>
+<div *ngIf="!cart.cartItems.length" class="col-md-6 offset-3 font-weight-bold">
+  Uw winkelwagen is nog leeg.
 </div>
+
 <table *ngIf="cart.cartItems.length" class="table">
   <thead>
     <tr>

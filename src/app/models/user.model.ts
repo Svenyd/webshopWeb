@@ -6,6 +6,7 @@ export class User {
   postcode: string;
   street: string;
   city: string;
+  role: string;
 
 
   constructor(name: string, email: string, phone: string, password: string, postcode: string, street: string, city: string) {

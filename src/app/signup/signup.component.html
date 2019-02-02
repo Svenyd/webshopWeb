@@ -1,13 +1,40 @@
-
-<div>
-  <input type="text" placeholder="Full name" #name>
-  <input type="text" placeholder="Email" #email>
-  <input type="text" placeholder="Password" #password>
-  <input type="text" placeholder="Password check" #passwordCheck>
+<div class="col-4 offset-4 border shadow rounded">
+  <form>
+    <div class="text-center">
+      <p class="font-weight-bold form-spacing">Registreer hier!</p>
+      <hr>
+      <div *ngIf="errorPassword || errorEmail">
+        <p *ngIf="errorEmail" class="font-weight-bold" style="color: red;">Email adres is al in gebruik!</p>
+        <p *ngIf="errorPassword" class="font-weight-bold" style="color: red;">Wachtwoorden komen niet overeen!</p>
+        <hr>
+      </div>
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Naam" class="form-control" #name>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email" class="form-control" #email>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Wachtwoord" class="form-control" #password>
+      </div>
+      <div class="form-group">
+        <input type="password" id="passwordCheck" placeholder="Nogmaals wachtwoord" class="form-control" #passwordCheck>
+      </div>
+      <div class="form-group">
+        <input type="text" id="phone" placeholder="Telefoon" class="form-control" #phone>
+      </div>
+      <div class="form-group">
+        <input type="text" id="street" placeholder="Straat" class="form-control" #street>
+      </div>
+      <div class="form-group">
+        <input type="text" id="postcode" placeholder="Postcode" class="form-control" #postcode>
+      </div>
+      <div class="form-group">
+        <input type="text" id="city" placeholder="Plaats" class="form-control" #city>
+      </div>
+      <div class="form-group">
+        <a (click)="onSignUp()" class="btn btn-success form-control">Sign up</a>
+      </div>
+    </div>
+  </form>
 </div>
-<div>
-  <input type="text" placeholder="House number" #house_number>
-  <input type="text" placeholder="Postal code" #postcode>
-  <input type="text" placeholder="City" #city>
-</div>
-<button type="submit" (click)="onSignUp()">Sign up</button>

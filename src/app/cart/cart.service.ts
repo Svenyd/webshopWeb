@@ -25,4 +25,8 @@ export class CartService {
   getCart() {
     return this.cart;
   }
+
+  clearCart() {
+    this.cart = {cartItems: [], totalPrice: 0};
+  }
 }

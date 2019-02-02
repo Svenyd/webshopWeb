@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SignupService} from './signup.service';
-import {logging} from 'selenium-webdriver';
+import {User} from '../models/user.model';
+import {LoginService} from '../login/login.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,27 +14,43 @@ export class SignupComponent implements OnInit {
   @ViewChild('email') email: ElementRef;
   @ViewChild('password') password: ElementRef;
   @ViewChild('passwordCheck') passwordCheck: ElementRef;
-  @ViewChild('house_number') house_number: ElementRef;
+  @ViewChild('phone') phone: ElementRef;
+  @ViewChild('street') street: ElementRef;
   @ViewChild('city') city: ElementRef;
   @ViewChild('postcode') postcode: ElementRef;
 
-  constructor(private signupService: SignupService) { }
+  errorEmail = false;
+  errorPassword = false;
+
+  constructor(private signupService: SignupService, private loginService: LoginService) { }
 
   ngOnInit() {
   }
 
   onSignUp() {
-    console.log(this.password.nativeElement.value);
-    console.log(this.passwordCheck.nativeElement.value);
+    this.errorPassword = false;
+    this.errorEmail = false;
     if (this.password.nativeElement.value === this.passwordCheck.nativeElement.value) {
-      this.signupService.signUp({
-        name: this.name.nativeElement.value,
-        email: this.email.nativeElement.value,
-        password: this.password.nativeElement.value,
-        postcode: this.postcode.nativeElement.value,
-        city: this.city.nativeElement.value,
-        house_number: this.house_number.nativeElement.value
-      }).subscribe(() => console.log('Signed Up!'));
+      this.signupService.signUp(
+        new User(
+          this.name.nativeElement.value,
+          this.email.nativeElement.value,
+          this.phone.nativeElement.value,
+          this.password.nativeElement.value,
+          this.postcode.nativeElement.value,
+          this.street.nativeElement.value,
+          this.city.nativeElement.value,
+        )).subscribe(user => {
+        console.log(user);
+        if (user != null) {
+          this.loginService.login(user);
+        } else {
+          this.errorEmail = true;
+        }
+      });
+    } else {
+      this.errorPassword = true;
     }
   }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../../models/product.model';
 import {ProductService} from '../product.service';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-product-list',
@@ -9,12 +10,14 @@ import {ProductService} from '../product.service';
 })
 export class ProductListComponent implements OnInit {
 
+  picture_URL = this.config.getPictureUrl();
+
   products: Product[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private config: AppConfig) { }
 
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    this.productService.getProductsFromServer().subscribe(products => this.products = products);
   }
 
   showInfo(product: Product) {

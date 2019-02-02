@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +17,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {SignupService} from './signup/signup.service';
 import {CartService} from './cart/cart.service';
 import { PaidComponent } from './paid/paid.component';
+import { AdminComponent } from './admin/admin.component';
+import {AppConfig} from './app.config';
+import {AdminService} from './admin/admin.service';
+import { ProtectedDirective } from './directives/protected.directive';
 
 const appRoutes: Routes = [
   {path: '', component: ProductpageComponent},
@@ -24,9 +28,13 @@ const appRoutes: Routes = [
   {path: 'sign-up', component: SignupComponent},
   {path: 'cart', component: CartComponent},
   {path: 'cart/checkout', component: CheckoutComponent},
-  {path: 'paid', component: PaidComponent}
+  {path: 'paid', component: PaidComponent},
+  {path: 'admin', component: AdminComponent}
 ];
 
+export function initializeApp(appConfig: AppConfig) {
+  return () => appConfig.load();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +46,9 @@ const appRoutes: Routes = [
     CheckoutComponent,
     ProductListComponent,
     ProductComponent,
-    PaidComponent
+    PaidComponent,
+    AdminComponent,
+    ProtectedDirective
   ],
   imports: [
     RouterModule.forRoot(
@@ -48,6 +58,14 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   providers: [
+    AppConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppConfig],
+      multi: true
+    },
+    AdminService,
     LoginService,
     ProductService,
     CartService,

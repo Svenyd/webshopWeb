@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {User} from '../models/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,21 +8,20 @@ export class LoginService {
 
   private userURL = 'https://localhost:4200/api/users';
 
-  user: User = new User('Sven van Duijn', 'sven.duijn@gmail.com', '0623815065', 'password', '2224DT', 'Geelhartje 3', 'Katwijk');
-  // user: User = null;
+  // user: User = new User('Sven van Duijn', 'sven.duijn@gmail.com', '0623815065', 'password', '2224DT', 'Geelhartje 3', 'Katwijk' , true);
+  user: User = new User('', '', '', '', '', '', '');
+
+  loggedIn = new EventEmitter<boolean>();
+  isLoggedIn = false;
+  authentication: string;
 
   constructor(private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
-  public isLoggedIn() {
-    return this.user.name !== '';
-  }
-
-
   authenticate(username: string, password: string) {
     const newUrl = `${this.userURL}/me`;
-    const base64 = 'Basic ' + btoa(username + ':' + password);
+    this.authentication = 'Basic ' + btoa(username + ':' + password);
     const httpHeaders = new HttpHeaders({
-      'Authorization' : base64
+      'Authorization' : this.authentication
     });
     const options = {
       headers: httpHeaders
@@ -33,11 +32,15 @@ export class LoginService {
 
   login(user: User) {
     this.user = user;
-    this.router.navigate([`../../`], {relativeTo: this.route});
+    this.isLoggedIn = true;
+    this.loggedIn.emit(this.isLoggedIn);
+    this.router.navigate([`../`], {relativeTo: this.route});
   }
 
   logout() {
     this.user = new User('', '', '', '', '', '', '');
+    this.isLoggedIn = false;
+    this.loggedIn.emit(this.isLoggedIn);
   }
 
   saveInfo(street: string, city: string, postcode: string, phone: string) {
@@ -45,7 +48,5 @@ export class LoginService {
     this.user.city = city;
     this.user.postcode = postcode;
     this.user.phone = phone;
-
-    // TODO: send to server
   }
 }

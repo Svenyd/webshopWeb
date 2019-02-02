@@ -9,18 +9,21 @@
         <h1>Pannenkoekenboerderij Katwijk</h1>
       </div>
     </div>
-    <div routerLink="cart" class="col-md-2">
-      <a class="vcenter col-md-6 offset-3">
+    <div class="col-md-2 row">
+      <a routerLink="cart" class="vcenter">
         <img src="/assets/pictures/cart.png" class="cart">
+      </a>
+      <a *ngIf="user.role === 'admin'" routerLink="admin" class="vcenter offset-1">
+        <img src="/assets/pictures/admin.png" class="cart">
       </a>
     </div>
     <div class="col-md-2">
-      <div *ngIf="!this.user">
+      <div *ngIf="!this.isLoggedIn">
         <h2>Login or sign up!</h2>
         <button routerLink="/login">Login</button>
         <button routerLink="/sign-up">Sign up</button>
       </div>
-      <div *ngIf="this.user">
+      <div *ngIf="this.isLoggedIn">
         You're logged in!
         <button (click)="logout()">logout</button>
       </div>

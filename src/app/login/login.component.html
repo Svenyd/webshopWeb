@@ -1,8 +1,17 @@
-<div>
-  <label>Login here:</label>
-  <label>Username</label>
-  <input type="text" id="username" title="Username" #username>
-  <label>Password</label>
-  <input type="password" id="password" title="Password" #password>
-  <button type="submit" (click)="onLogin()">Login</button>
+<div class="col-4 offset-4 border shadow rounded">
+  <form>
+    <div class="text-center">
+      <p class="font-weight-bold form-spacing">Log hier in!</p>
+      <hr>
+      <div class="form-group">
+        <input type="text" id="username" title="Username" placeholder="Email" class="form-control" #username>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" title="Password" placeholder="Wachtwoord" class="form-control" #password>
+      </div>
+      <div class="form-group">
+        <a type="submit" routerLinkActive="active" (click)="onLogin()" class="btn btn-success form-control">Login</a>
+      </div>
+    </div>
+  </form>
 </div>

@@ -9,6 +9,7 @@ import {CartService} from '../cart/cart.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild('name')name: ElementRef;
   @ViewChild('street')street: ElementRef;
   @ViewChild('city')city: ElementRef;
   @ViewChild('postcode')postcode: ElementRef;
@@ -18,12 +19,13 @@ export class CheckoutComponent implements OnInit {
   isLoggedIn;
   editAddress: boolean;
   cart;
+  readyToPay: boolean;
 
   constructor(private loginService: LoginService, private cartService: CartService) { }
 
   ngOnInit() {
     this.user = this.loginService.user;
-    this.isLoggedIn = this.loginService.isLoggedIn();
+    this.isLoggedIn = this.loginService.isLoggedIn;
     this.cart = this.cartService.cart;
   }
 
@@ -35,5 +37,9 @@ export class CheckoutComponent implements OnInit {
       this.postcode.nativeElement.value,
       this.phone.nativeElement.value
     );
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
   }
 }
