@@ -1,27 +1,27 @@
-# WebshopWeb
+# Webshop IPRWC 2019
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+Webshop voor IPRWC 2019 gemaakt met Angular 7
 
-## Development server
+## Login
+### Docent
+`docentAdmin@docent.com`
+`docentPassword`
+### Student
+`studentAdmin@student.com`
+`studentPassword`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## URI's
 
-## Code scaffolding
+### Products
+`GET /products`
+`POST /products`
+`DELETE /products/{product_name}`
+`PUT /pruducts/{product_name}`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Users
+`GET /users`
+`GET /users/{email}`
+`POST /users`
+`PUT /users`
+`DELETE /users/{email}`
+`GET /users/me`
