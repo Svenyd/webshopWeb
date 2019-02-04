@@ -1,67 +1,122 @@
-<div appProtected class="admin-table-block border shadow">
-  <div class="container-fluid">
-    <table class="table">
-      <thead>
-      <tr class="d-flex">
-        <th class="col-1"></th>
-        <th class="col-3">
-          Naam
-        </th>
-        <th class="col-1">
-          Prijs
-        </th>
-        <th class="col-7">
-          Ingredienten
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let product of products" class="d-flex">
-        <td class="col-1">
-          <img src="{{picture_url + product.picture}}" class="img-thumbnail img-product m-0 p-0">
-        </td>
-        <td class="col-3">
-          {{product.name}}
-        </td>
-        <td class="col-1">
-          {{product.price}}
-        </td>
-        <td class="col-6">
-          <div *ngFor="let ingredient of product.ingredients" class="d-inline">
-            {{ingredient}}
-          </div>
-        </td>
-        <td class="col-1">
-          <img src="/assets/pictures/minus.png" class="img-count pointer" (click)="remove(product)">
-        </td>
-      </tr>
-      <tr *ngIf="addProduct" class="d-flex">
-        <td class="col-1">
-          <input type="file" class="form-control-file" (change)="onFileSelected($event)">
-        </td>
-        <td class="col-3">
-          <input type="text" class="form-control" placeholder="Naam" #name>
-        </td>
-        <td class="col-1">
-          <input type="number" class="form-control" placeholder="Prijs" #price>
-        </td>
-        <td class="col-5">
-          <div *ngFor="let ingredient of newProduct.ingredients" class="d-inline">
-            {{ingredient}}
-          </div>
-          <input type="text" class="form-control" placeholder="Ingredienten" #ingredients>
-        </td>
-        <td>
-          <img src="/assets/pictures/plus.png" class="img-count pointer" (click)="addIngredient()">
-        </td>
-        <td class="col-1"><a class="btn btn-success" (click)="saveProduct()">Opslaan</a></td>
-      </tr>
-      <tr class="d-flex">
-        <td class="col-12">
-          <img src="/assets/pictures/plus.png" class="img-count pointer" (click)="onNewProduct()">
-        </td>
-      </tr>
-      </tbody>
-    </table>
+<div class="scroll">
+  <div class="admin-table-block border shadow">
+    <a class="btn btn-success" (click)="showProducts = !showProducts">Switch</a>
+  </div>
+  <div appProtected class="admin-table-block border shadow">
+    <div *ngIf="!showProducts" class="container-fluid">
+      <table class="table">
+        <thead>
+        <tr class="d-flex">
+          <th class="col-4">
+            Naam
+          </th>
+          <th class="col-4">
+            Email
+          </th>
+          <th class="col-4">
+            Rechten
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users" class="d-flex">
+          <td class="col-4">
+            {{user.name}}
+          </td>
+          <td class="col-4">
+            {{user.email}}
+          </td>
+          <td class="col-2">
+            <div *ngIf="user !== isEditUser">
+              {{user.role}}
+              <img src="/assets/pictures/edit.png" (click)="isEditUser = user" class="pointer">
+            </div>
+            <div *ngIf="user === isEditUser">
+              <select id="permission" class="form-control" name="permission" #permission>
+                <option>Admin</option>
+                <option [selected]="user.role !== 'admin'">Customer</option>
+              </select>
+              <img src="assets/pictures/ok.png" class="pointer" (click)="saveUser(user)">
+            </div>
+          </td>
+          <td class="col-2">
+            <img src="/assets/pictures/minus.png" class="img-count pointer" (click)="removeUser(user)">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="showProducts" class="container-fluid">
+      <table class="table">
+        <thead>
+        <tr class="d-flex">
+          <th class="col-1"></th>
+          <th class="col-3">
+            Naam
+          </th>
+          <th class="col-1">
+            Prijs
+          </th>
+          <th class="col-7">
+            Ingredienten
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of products" class="d-flex">
+          <td class="col-1">
+            <img src="{{picture_url + product.picture}}" class="img-thumbnail img-product m-0 p-0">
+          </td>
+          <td class="col-3">
+            {{product.name}}
+          </td>
+          <td class="col-1">
+            <div *ngIf="product !== isEditPrice">
+              {{product.price}}
+              <img src="/assets/pictures/edit.png" class="pointer" (click)="isEditPrice = product">
+            </div>
+            <div *ngIf="product === isEditPrice">
+              <input type="number" class="form-control" placeholder="Prijs" #editPrice>
+              <img src="/assets/pictures/ok.png" class="pointer" (click)="savePrice(product)">
+            </div>
+          </td>
+          <td class="col-6">
+            <div *ngFor="let ingredient of product.ingredients" class="d-inline">
+              {{ingredient}}
+            </div>
+          </td>
+          <td class="col-1">
+            <img src="/assets/pictures/minus.png" class="img-count pointer" (click)="remove(product)">
+          </td>
+        </tr>
+        <tr *ngIf="addProduct" class="d-flex">
+          <td class="col-1">
+            <input type="file" class="form-control-file" (change)="onFileSelected($event)">
+          </td>
+          <td class="col-3">
+            <input type="text" class="form-control" placeholder="Naam" #name>
+          </td>
+          <td class="col-1">
+            <input type="number" class="form-control" placeholder="Prijs" #price>
+          </td>
+          <td class="col-5">
+            <div *ngFor="let ingredient of newProduct.ingredients" class="d-inline">
+              {{ingredient}}
+            </div>
+            <input type="text" class="form-control" placeholder="Ingredienten" #ingredients>
+          </td>
+          <td>
+            <img src="/assets/pictures/plus.png" class="img-count pointer" (click)="addIngredient()">
+          </td>
+          <td class="col-1"><a class="btn btn-success" (click)="saveProduct()">Opslaan</a></td>
+        </tr>
+        <tr class="d-flex">
+          <td class="col-12">
+            <img src="/assets/pictures/plus.png" class="img-count pointer" (click)="onNewProduct()">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

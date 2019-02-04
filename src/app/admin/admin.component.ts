@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Product} from '../models/product.model';
 import {AdminService} from './admin.service';
 import {AppConfig} from '../app.config';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-admin',
@@ -11,23 +12,32 @@ import {AppConfig} from '../app.config';
 export class AdminComponent implements OnInit {
 
   products: Product[] = [];
+  users: User[] = [];
   addProduct: boolean;
   ingredientCount = 0;
-  newProduct: Product = new Product();
 
+  newProduct: Product = new Product();
   @ViewChild('name')name: ElementRef;
   @ViewChild('price')price: ElementRef;
   @ViewChild('ingredients')ingredients: ElementRef;
 
-  selectedPicture = null;
+  @ViewChild('editPrice')editPrice: ElementRef;
+  @ViewChild('permission')permission: ElementRef;
 
+  selectedPicture = null;
   picture_url = this.config.getPictureUrl();
+  isEditPrice: Product;
+  showProducts = true;
+  isEditUser: User;
 
   constructor(private adminService: AdminService, private config: AppConfig) { }
 
   ngOnInit() {
     this.adminService.getProducts().subscribe(products => {
       this.products = products;
+    });
+    this.adminService.getUsers().subscribe(users => {
+      this.users = users;
     });
   }
 
@@ -45,7 +55,9 @@ export class AdminComponent implements OnInit {
   }
 
   remove(product: Product) {
-    this.adminService.deleteProduct(product).subscribe();
+    this.adminService.deleteProduct(product).subscribe(() => {
+      this.products.splice(this.products.indexOf(product), 1);
+    });
   }
 
   addIngredient() {
@@ -57,5 +69,33 @@ export class AdminComponent implements OnInit {
 
   onNewProduct() {
     this.addProduct = true;
+  }
+
+  savePrice(product: Product) {
+    for (const item of this.products) {
+      if (item === product) {
+        item.price = this.editPrice.nativeElement.value;
+        this.adminService.updateProduct(product).subscribe(() => {
+          this.isEditPrice = null;
+        });
+      }
+    }
+  }
+
+  saveUser(user: User) {
+    for (const item of this.users) {
+      if (item === user) {
+        item.role = this.permission.nativeElement.value === 'Admin' ? 'admin' : 'customer';
+        this.adminService.updateUser(user).subscribe(() => {
+          this.isEditUser = null;
+        });
+      }
+    }
+  }
+
+  removeUser(user: User) {
+    this.adminService.deleteUser(user).subscribe(() => {
+      this.users.splice(this.users.indexOf(user), 1);
+    });
   }
 }

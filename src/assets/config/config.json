@@ -1,4 +1,4 @@
 {
-  "API_URL": "http://localhost:8080/api",
-  "PICTURE_URL": "http://localhost:8080/pictures/"
+  "API_URL": "https://www.webshop-sven.dubio-groep7.nl:8443/api",
+  "PICTURE_URL": "https://www.webshop-sven.dubio-groep7.nl:8443/pictures/"
 }

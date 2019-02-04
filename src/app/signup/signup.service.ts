@@ -2,13 +2,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {User} from '../models/user.model';
+import {AppConfig} from '../app.config';
 
 @Injectable()
 export class SignupService {
 
-  private userURL = 'https://localhost:4200/api/users';
+  private userURL = `${this.config.getUrl()}/users`;
 
-  constructor(private httpCliet: HttpClient) { }
+  constructor(private httpCliet: HttpClient, private config: AppConfig) { }
 
   signUp(user): Observable<User> {
     const userJSON = JSON.stringify(user);

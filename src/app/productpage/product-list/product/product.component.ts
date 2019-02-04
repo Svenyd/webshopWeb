@@ -22,6 +22,8 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart() {
-    this.cart.add(this.product, Number(this.amount.nativeElement.value));
+    if (this.amount.nativeElement.value > 0) {
+      this.cart.add(this.product, Number(this.amount.nativeElement.value));
+    }
   }
 }

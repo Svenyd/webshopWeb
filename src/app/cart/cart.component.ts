@@ -20,27 +20,19 @@ export class CartComponent implements OnInit {
   }
 
   countDown(cartItem: CartItem) {
-    for (const item of this.cart.cartItems) {
-      if (item === cartItem && item.amount !== 1) {
-        item.amount -= 1;
-        this.cart.totalPrice -= item.product.price;
-      }
+    if (cartItem.amount !== 1) {
+      this.cartService.add(cartItem.product, -1);
+      this.cart = this.cartService.cart;
     }
   }
 
   countUp(cartItem: CartItem) {
-    for (const item of this.cart.cartItems) {
-      if (item === cartItem) {
-        item.amount += 1;
-        this.cart.totalPrice += item.product.price;
-      }
-    }
+    this.cartService.add(cartItem.product, 1);
+    this.cart = this.cartService.cart;
   }
 
   remove(cartItem: CartItem) {
-    const index = this.cart.cartItems.indexOf(cartItem, 0);
-    if (index > -1) {
-      this.cart.cartItems.splice(index, 1);
-    }
+    this.cartService.remove(cartItem);
+    this.cart = this.cartService.cart;
   }
 }

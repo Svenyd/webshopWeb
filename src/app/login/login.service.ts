@@ -2,11 +2,12 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {User} from '../models/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AppConfig} from '../app.config';
 
 @Injectable()
 export class LoginService {
 
-  private userURL = 'https://localhost:4200/api/users';
+  private userURL = `${this.config.getUrl()}/users`;
 
   // user: User = new User('Sven van Duijn', 'sven.duijn@gmail.com', '0623815065', 'password', '2224DT', 'Geelhartje 3', 'Katwijk' , true);
   user: User = new User('', '', '', '', '', '', '');
@@ -15,7 +16,7 @@ export class LoginService {
   isLoggedIn = false;
   authentication: string;
 
-  constructor(private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private router: Router, private route: ActivatedRoute, private config: AppConfig) { }
 
   authenticate(username: string, password: string) {
     const newUrl = `${this.userURL}/me`;
